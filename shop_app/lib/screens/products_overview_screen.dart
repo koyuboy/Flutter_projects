@@ -37,7 +37,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 value: FilterOptions.all,
               ),
             ],
-            icon: const Icon(Icons.more_vert),
+            icon: const Icon(Icons.filter_alt),
             onSelected: (FilterOptions selectedValue) {
               setState(() {
                 if (selectedValue == FilterOptions.favorites) {
@@ -64,9 +64,8 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           ),
         ],
       ),
-      drawer: AppDrawer(
-        
-      ),
+      drawer: const AppDrawer(),
+      drawerEdgeDragWidth: MediaQuery.of(context).size.width,
       body: ProductsGrid(showFavs: _showFavoritesOnly),
     );
   }

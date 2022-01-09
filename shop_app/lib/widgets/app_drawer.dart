@@ -9,6 +9,7 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
+          
           AppBar(
             title: const Text('Hello Friend!'),
             automaticallyImplyLeading: false,
