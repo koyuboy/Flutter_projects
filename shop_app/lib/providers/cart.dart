@@ -5,7 +5,6 @@ class CartItem {
   final String title;
   final int quantity;
   final double price;
-  
 
   CartItem({
     required this.id,
@@ -60,8 +59,13 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeItem(String productId){
+  void removeItem(String productId) {
     _items.remove(productId);
+    notifyListeners();
+  }
+
+  void clear() {
+    _items = {};
     notifyListeners();
   }
 }
