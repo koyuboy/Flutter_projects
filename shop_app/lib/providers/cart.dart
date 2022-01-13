@@ -87,4 +87,32 @@ class Cart with ChangeNotifier {
     _items = {};
     notifyListeners();
   }
+
+  void updateQuantitySingleItem({required String productId, required bool increase}) {
+    if (!_items.containsKey(productId)) {
+      return;
+    }
+
+    increase
+        ? _items.update(
+            productId,
+            (cartItem) => CartItem(
+                id: cartItem.id,
+                title: cartItem.title,
+                quantity: cartItem.quantity + 1,
+                price: cartItem.price),
+          )
+        : (_items[productId]!.quantity > 1)
+            ? _items.update(
+                productId,
+                (cartItem) => CartItem(
+                    id: cartItem.id,
+                    title: cartItem.title,
+                    quantity: cartItem.quantity - 1,
+                    price: cartItem.price),
+              )
+            : _items.remove(productId);
+
+    notifyListeners();
+  }
 }

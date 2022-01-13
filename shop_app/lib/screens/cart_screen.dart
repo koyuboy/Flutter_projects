@@ -14,6 +14,47 @@ class CartScreeen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Cart'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              if (cart.items.isNotEmpty) {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: const Text(
+                      'Are you sure?',
+                    ),
+                    content: const Text(
+                      'Do you want to delete the cart?',
+                    ),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          },
+                          child: const Text('No')),
+                      TextButton(
+                          onPressed: () {
+                            cart.clear();
+                            Navigator.of(context).pop(true);
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text(
+                                'Cart deleted!',
+                              ),
+                              duration: Duration(seconds: 1),
+                            ));
+                          },
+                          child: const Text('Yes')),
+                    ],
+                  ),
+                );
+              }
+            },
+            icon: const Icon(Icons.delete),
+          ),
+        ],
       ),
       body: Column(
         children: [

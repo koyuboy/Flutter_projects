@@ -55,6 +55,11 @@ class CartItem extends StatelessWidget {
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('\'$title\' deleted from the cart!'),
+                      duration: const Duration(seconds: 1),
+                    ));
                   },
                   child: const Text('Yes')),
             ],
@@ -83,7 +88,7 @@ class CartItem extends StatelessWidget {
               children: [
                 Text(title),
                 Container(
-                  height: 40,
+                  height: 50,
                   color: Colors.black12,
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
@@ -98,7 +103,41 @@ class CartItem extends StatelessWidget {
               ],
             ),
             subtitle: Text('Total: \$ ${(price * quantity)}'),
-            trailing: Text('$quantity x'),
+            trailing: Consumer<Cart>(
+              builder: (_, cartData, __) => Wrap(
+                  //width: 42,
+                  spacing: 10,
+                  children: [
+                    SizedBox(
+                      height: 65,
+                      width: 27,
+                      child: Center(
+                        child: Text(
+                          '${cartData.items[productId]!.quantity} x',
+                        ),
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                            onTap: () {
+                              cartData.updateQuantitySingleItem(
+                                  productId: productId, increase: true);
+                            },
+                            child: const Icon(Icons.arrow_circle_up_rounded)),
+                        InkWell(
+                            onTap: () {
+                              if (cartData.items[productId]!.quantity > 1) {
+                                cartData.updateQuantitySingleItem(
+                                    productId: productId, increase: false);
+                              }
+                            },
+                            child: const Icon(Icons.arrow_circle_down_rounded)),
+                      ],
+                    ),
+                  ]),
+            ),
           ),
         ),
       ),
