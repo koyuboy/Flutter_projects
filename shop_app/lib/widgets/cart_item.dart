@@ -89,6 +89,7 @@ class CartItem extends StatelessWidget {
                 Text(title),
                 Container(
                   height: 50,
+                  width: 50,
                   color: Colors.black12,
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
