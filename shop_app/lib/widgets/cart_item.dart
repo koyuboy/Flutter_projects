@@ -21,7 +21,8 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String imageUrl = Products().findById(productId).imageUrl;
+    final String imageUrl =
+        Provider.of<Products>(context).findById(productId).imageUrl;
     return Dismissible(
       key: ValueKey(id),
       direction: DismissDirection.endToStart,
